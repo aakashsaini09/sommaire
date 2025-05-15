@@ -1,4 +1,4 @@
-import { BrainCircuit, FileOutput, FileText, Pizza } from 'lucide-react';
+import { BrainCircuit, FileOutput, FileText, MoveRight, Pizza } from 'lucide-react';
 import React from 'react'
 type Steps = {
   label: string;
@@ -47,7 +47,16 @@ export default function HowItWorkSection() {
         </div>
         <div className='grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto relative'>
             {steps.map((step, index) => (
-                <StepItem key={index} {...step} />
+                <div className='relative flex items-stretch' key={index}>
+                    <StepItem {...step} />
+                    {index < steps.length -1 && (<div className='hidden md:block absolute top-1/2 -right-4 transform -translate-y-1/2 z-10'>
+                        <MoveRight
+                            size={32}
+                            strokeWidth={1}
+                            className='text-rose-400'>
+                            </MoveRight>
+                    </div>)}
+                </div>
             ))}
         </div>
         </div>
@@ -65,8 +74,10 @@ function StepItem({ label, description, icon }: Steps) {
                 <div className='flex items-center justify-center h-24 w-24 mx-auto rounded-2xl bg-linear-to-br from-rose-500/10 to-transparent group-hover:from-rose-500/20 transition-colors'>
                     <div className='text-rose-500'>{icon}</div>
                 </div>
-            <h4>{label}</h4>
-            <p>{description}</p>
+            <div className='flex flex-col flex-1 gap-1 justify-between '>
+            <h4 className='text-center font-bold text-xl'>{label}</h4>
+            <p className='text-center text-gray-600 text-sm'>{description}</p>
+            </div>
             </div>
         </div>
     )
