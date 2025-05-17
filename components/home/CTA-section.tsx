@@ -12,7 +12,7 @@ const CTASection = () => {
             <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl">
               Ready to Save Hours of Reading Time?
             </h2>
-            <p>
+            <p className="mx-auto max-w-[700px] text-gray-500 md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed dark:text-gray-400">
               Transform lengthy documents into clear actionable insights with
               our AI-powered summarizer.
             </p>
@@ -39,5 +39,6 @@ const CTASection = () => {
     </section>
   );
 };
-
+// NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY=pk_test_ZmxleGlibGUta2FuZ2Fyb28tNC5jbGVyay5hY2NvdW50cy5kZXYk
+// CLERK_SECRET_KEY=sk_test_SS4UKpOO3C9QkZGQ2Ie9nyx3byQvPmVSeIimkiKfOY
 export default CTASection;
