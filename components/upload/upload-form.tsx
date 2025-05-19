@@ -2,6 +2,7 @@
 import { z } from "zod";
 import UploadFromInput from "./upload-form-input";
 import { useUploadThing } from "@/utils/uploadthing";
+import { toast } from "sonner"
 const schema = z.object({
     file: z.instanceof(File, {message: "Invalid file"}).
     refine((file) => file.size <= 20 * 1024 * 1024, 
@@ -19,6 +20,10 @@ export default function UploadForm() {
             },
             onUploadError: (err) => {
                 console.error('Error occurred while uploading file: ', err);
+                toast('Error occurred while uploading file', {
+                    description: err.message,
+                    duration: 5000
+                });
             },
             // any used here
             onUploadBegin: ({file}) => {
@@ -36,12 +41,32 @@ export default function UploadForm() {
         console.log(validatedFields);
         if(!validatedFields.success) {
             console.log(validatedFields.error.flatten().fieldErrors.file?.[0] ?? 'Invalid file');
+            toast('Something went wrong', {
+                description: validatedFields.error.flatten().fieldErrors.file?.[0] ?? 'Invalid file',
+                duration: 5000,
+                
+            })
             return;
         }
+         toast('🗒️ Uploading PDF...', {
+            description: 'We are uploading your PDF! ✨',
+            duration: 5000,
+            
+        })
         const resp = await startUpload([file]);
         if(!resp){
+            toast('Something went wrong', {
+            description: 'Please use a different file.',
+            duration: 5000,
+            
+        })
             return;
         }
+         toast('🗒️ Processing PDF...', {
+            description: 'Hang tight! Our AI is reading through your PDF! ✨',
+            duration: 5000,
+            
+        })
     };
     return (
     <div className="flex flex-col gap-8 w-full max-w-2xl mx-auto">
