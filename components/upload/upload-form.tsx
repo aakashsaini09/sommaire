@@ -3,6 +3,7 @@ import { z } from "zod";
 import UploadFromInput from "./upload-form-input";
 import { useUploadThing } from "@/utils/uploadthing";
 import { toast } from "sonner"
+import { generatePdfSummary } from "@/actions/upload-actions";
 const schema = z.object({
     file: z.instanceof(File, {message: "Invalid file"}).
     refine((file) => file.size <= 20 * 1024 * 1024, 
@@ -26,6 +27,7 @@ export default function UploadForm() {
                 });
             },
             // any used here
+            // @ts-ignore
             onUploadBegin: ({file}) => {
                 console.log('upload started', file);
             }
@@ -65,8 +67,8 @@ export default function UploadForm() {
          toast('🗒️ Processing PDF...', {
             description: 'Hang tight! Our AI is reading through your PDF! ✨',
             duration: 5000,
-            
         })
+        const summary = await generatePdfSummary(resp)
     };
     return (
     <div className="flex flex-col gap-8 w-full max-w-2xl mx-auto">

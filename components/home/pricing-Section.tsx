@@ -1,8 +1,28 @@
+'use client'
 import { ArrowRight } from "lucide-react";
 import Link from "next/link";
 import React from "react";
+import { Button } from "../ui/button";
+import { toast } from "sonner";
 
 export default function PricingSection() {
+  function clickF() {
+    toast('Error occurred while uploading file', {
+      description: 'This is a test toast message',
+      style: {
+        backgroundColor: '#D0D0D0',
+        color: 'black',
+        
+      },
+      duration: 5000,
+      action: {
+        label: 'Retry',
+        onClick: () => {
+          console.log('Retry clicked');
+        },
+      }
+    });
+    }
   return (
     <section>
       <div className="py-12 lg:py-24 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 lg:pt-12">
@@ -197,6 +217,9 @@ export default function PricingSection() {
           </div>
         </div>
       </div>
+      {/* <div className="flex justify-center items-center">
+      <Button className="text-center flex justify-center items-center" onClick={clickF}>Click me</Button>
+      </div> */}
     </section>
   );
 }
