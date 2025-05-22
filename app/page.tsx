@@ -9,6 +9,7 @@ export default function Home() {
   return (
     <div className="relative w-full h-full">
       {/* <BgGradient/> */}
+      {/* actions/upload-actions.ts */}
       <div className="flex flex-col">
         <HeroSection />
         <DemoSection />
