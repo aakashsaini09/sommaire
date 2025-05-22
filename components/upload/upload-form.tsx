@@ -69,6 +69,7 @@ export default function UploadForm() {
             duration: 5000,
         })
         const summary = await generatePdfSummary(resp)
+        console.log({ summary});
     };
     return (
     <div className="flex flex-col gap-8 w-full max-w-2xl mx-auto">
