@@ -37,7 +37,7 @@ export async function generatePdfSummary(uploadResponse: [{
         let summary;
         try {
             summary = await generatePdfSummaryFromOpenAI(pdfText);
-            console.log({ summary });
+            console.log("AI summary", { summary });
         } catch (error) {
             console.log(error)
             // call gemini here is openai fails

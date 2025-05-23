@@ -69,6 +69,17 @@ export default function UploadForm() {
             duration: 5000,
         })
         const summary = await generatePdfSummary(resp)
+        // const summary = await generatePdfSummary([
+        //     {
+        //         serverData: {
+        //             userId: resp[0]?.serverData?.userId,
+        //             file: {
+        //                 ufsUrl: resp[0]?.serverData?.file?.ufsUrl,
+        //                 name: resp[0]?.serverData?.file?.name
+        //             }
+        //         }
+        //     }
+        // ])
         console.log({ summary});
     };
     return (
