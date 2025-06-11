@@ -95,9 +95,9 @@ export default function UploadForm() {
                 duration: 5000,
             });
             formRef.current?.reset();
-            // if(data.summary){
-                
-            // }
+            if(data.summary){
+                // save teh summary 
+            }
         }
     } catch (error) {
         setLoading(false);

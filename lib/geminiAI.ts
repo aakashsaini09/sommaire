@@ -1,30 +1,22 @@
 import { SUMMARY_SYSTEM_PROMPT } from '@/utils/prompts';
-import OpenAI from 'openai';
-const openai = new OpenAI({
-    apiKey: process.env.OPENAI_KEY,
-});
+import { GoogleGenerativeAI } from '@google/generative-ai'
 
-export async function generatePdfSummaryFromGemini(pdfText: string) {
+
+const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY || '');
+export const generatePdfSummaryFromGemini = async (pdfText: string) {
     try {
-        const completion = await openai.chat.completions.create({
-            model: 'gpt-4o',
-            messages: [
-                { role: 'system', content: SUMMARY_SYSTEM_PROMPT },
-                {
-                    role: 'user',
-                    content: `Transform this document into an engaging, easy-to-read summary with contextually relevant emojis and proper makrdown formatting:\n\n${pdfText}`,
-                },
-            ],
-            temperature: 0.7,
-            max_tokens: 1500,
+        const model = genAI.getGenerativeModel({
+            model: 'gemini-1.5-pro-002'
         });
-        return completion.choices[0].message.content;
-
+        const prompt = `${SUMMARY_SYSTEM_PROMPT}\n\nTransform this document into an engaging, easy-to-read summary with contextually relevant emojis and proper markdown formatting:\n\n${pdfText}`;
+        const result = await model.generateContent(prompt);
+        const response = await result.response;
+        return response.text();
     } catch (error: any) {
         if (error?.status === 429) {
-            console.log("error: ", error)
             throw new Error('RATE_LIMIT_EXCEEDED');
         }
+        console.error('Gemini API Error: ', error);
         throw error;
     }
 }
